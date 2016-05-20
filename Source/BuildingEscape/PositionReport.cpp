@@ -12,8 +12,7 @@ UPositionReport::UPositionReport()
 	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
-}
+} 
 
 
 // Called when the game starts
@@ -21,7 +20,12 @@ void UPositionReport::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	
+	FString ObjectName = GetOwner()->GetName();
+	FString ObjectPos = GetOwner()->GetActorLocation().ToString();
+	
+	UE_LOG(LogTemp, Warning, TEXT("Position report functioning properly. I am %s, at %s"), *ObjectName, *ObjectPos);
+	
 	
 }
 
@@ -32,5 +36,8 @@ void UPositionReport::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	// ...
+	FVector offset = FVector(float(0), float(0), float(1));
+	FVector FVObjectPos = GetOwner()->GetActorLocation();
+	GetOwner()->SetActorLocation(FVObjectPos + offset);
 }
 
